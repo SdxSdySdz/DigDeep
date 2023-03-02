@@ -34,8 +34,6 @@ namespace CodeBase.GameLogic.Player
                 movementVector = _camera.transform.TransformDirection(_inputService.Axes);
                 movementVector.y = 0;
                 movementVector.Normalize();
-
-                transform.forward = movementVector;
             }
 
             movementVector += Physics.gravity;
