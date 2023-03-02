@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.Update;
@@ -29,7 +30,8 @@ namespace CodeBase.Infrastructure.States.Core
                     this, 
                     sceneLoader, 
                     services.Get<IFactoryService>(),
-                    services.Get<IProgressService>()
+                    services.Get<IProgressService>(),
+                    services.Get<IInputService>()
                     ) },
                 { typeof(GameLoopState), new GameLoopState(
                     this

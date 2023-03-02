@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Input
 {
