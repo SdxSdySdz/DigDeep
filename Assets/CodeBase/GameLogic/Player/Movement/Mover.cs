@@ -1,38 +1,38 @@
 ﻿using CodeBase.Infrastructure.Services.Input;
 using UnityEngine;
 
-namespace CodeBase.GameLogic.Player
+namespace CodeBase.GameLogic.Player.Movement
 {
-    public abstract class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour
     {
         [SerializeField] private CharacterController _controller;
-        [SerializeField] private float _movementSpeed;
-
+        
+        private IMovementStrategy _movementStrategy;
         private IInputService _inputService;
 
-        public void Enable()
+        public void Construct(IMovementStrategy movementStrategy, IInputService inputService)
         {
-            
+            _movementStrategy = movementStrategy;
+            _inputService = inputService;
         }
         
-        public void Disable()
-        {
-            
-        }
-
         private void Update()
         {
-            if (_inputService == null)
+            if (_inputService == null || _movementStrategy == null)
                 return;
 
-            OnUpdate(_inputService.Axes);
+            Vector3 movementVector = _movementStrategy.GetMovementVector(_inputService.Axes);
+            Move(movementVector);
         }
 
-        protected abstract void OnUpdate(Vector2 inputAxes);
-        
-        protected void Move(Vector3 movementVector)
+        public void SetMovementStrategy(IMovementStrategy movementStrategy)
         {
-            _controller.Move(movementVector * (_movementSpeed * Time.deltaTime));
+            _movementStrategy = movementStrategy;
+        }
+        
+        private void Move(Vector3 movementVector)
+        {
+            _controller.Move(movementVector * Time.deltaTime);
         }
     }
 }
