@@ -11,4 +11,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameLoop.unity
     guid: 462a2ddcbdebf5341b4d29742ad121bc
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 094f086206a1c8d49a0f440846568ac2, type: 2}

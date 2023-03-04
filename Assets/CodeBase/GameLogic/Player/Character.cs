@@ -1,4 +1,5 @@
-﻿using CodeBase.GameLogic.Player.Movement;
+﻿using CodeBase.GameLogic.Digging;
+using CodeBase.GameLogic.Player.Movement;
 using CodeBase.Infrastructure.Services.Input;
 using DG.Tweening;
 using UnityEngine;
@@ -14,6 +15,12 @@ namespace CodeBase.GameLogic.Player
         public void Construct(IInputService inputService)
         {
             _mover.Construct(new FloorAlongMovement(5f, 1f, Camera.main), inputService);
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.collider.gameObject.TryGetComponent(out EarthBlock block))
+                block.Dig();
         }
 
         public void StopClimbing(Vector3 floorPosition)

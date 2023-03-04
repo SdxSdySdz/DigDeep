@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.Infrastructure.Services.Progress;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
 {
@@ -11,5 +13,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         
         void Cleanup();
         Task WarmUp();
+
+        Task<Bone> CreateBone(Vector3 position);
     }
 }

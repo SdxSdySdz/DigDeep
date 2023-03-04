@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CodeBase.Constants;
+using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.Infrastructure.Services.Assets;
 using CodeBase.Infrastructure.Services.Progress;
 using UnityEngine;
@@ -21,7 +23,15 @@ namespace CodeBase.Infrastructure.Services.Factory
         public async Task WarmUp()
         {
         }
-       
+
+        public async Task<Bone> CreateBone(Vector3 position)
+        {
+            GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.Bone, position);
+            Bone bone = prefab.GetComponent<Bone>();
+
+            return bone;
+        }
+
         private void Register(IProgressInteractor progressInteractor)
         {
             if (progressInteractor is IProgressWriter progressWriter)

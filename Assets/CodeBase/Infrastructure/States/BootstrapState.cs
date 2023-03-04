@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services.Assets;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Random;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.SDK;
 using CodeBase.Infrastructure.Services.Update;
@@ -56,6 +57,8 @@ namespace CodeBase.Infrastructure.States
                 _services.Get<IProgressService>(),
                 _services.Get<IFactoryService>()
             ));
+
+            _services.Register<IRandomService>(new RandomService());
         }
 
         private void OnYandexInitialized()

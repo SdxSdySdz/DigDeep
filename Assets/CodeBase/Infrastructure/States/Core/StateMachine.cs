@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Random;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.Update;
 using UnityEngine;
@@ -31,7 +32,8 @@ namespace CodeBase.Infrastructure.States.Core
                     sceneLoader, 
                     services.Get<IFactoryService>(),
                     services.Get<IProgressService>(),
-                    services.Get<IInputService>()
+                    services.Get<IInputService>(),
+                    services.Get<IRandomService>()
                     ) },
                 { typeof(GameLoopState), new GameLoopState(
                     this
