@@ -1,5 +1,6 @@
 ﻿using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.GameLogic.Player;
+using CodeBase.GameLogic.Pooling;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Random;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace CodeBase.GameLogic.Digging
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class EarthBlock : MonoBehaviour
+    public class EarthBlock : PoolObject
     {
         private const float BoneSpawningProbability = 1f;
         
@@ -22,7 +23,7 @@ namespace CodeBase.GameLogic.Digging
         
         public void Dig(Character character)
         {
-            Destroy(gameObject);
+            Deactivate();
 
             bool isBoneSpawningNeeded = _randomService.GenerateProbability() < BoneSpawningProbability;
             if (isBoneSpawningNeeded)

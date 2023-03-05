@@ -1,4 +1,5 @@
-﻿using CodeBase.GameLogic.Digging;
+﻿using System;
+using CodeBase.GameLogic.Digging;
 using CodeBase.GameLogic.Player.Movement;
 using CodeBase.Infrastructure.Services.Input;
 using DG.Tweening;
@@ -19,7 +20,12 @@ namespace CodeBase.GameLogic.Player
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (hit.collider.gameObject.TryGetComponent(out EarthBlock block))
+            
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out EarthBlock block))
                 block.Dig(this);
         }
 
