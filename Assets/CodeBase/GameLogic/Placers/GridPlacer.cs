@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.GameLogic
+namespace CodeBase.GameLogic.Placers
 {
     public class GridPlacer : MonoBehaviour
     {
@@ -24,12 +24,13 @@ namespace CodeBase.GameLogic
 
         public void Place(Transform child)
         {
-            if (_children.Contains(child) == false)
-                Adopt(child);
+            if (_children.Contains(child)) 
+                return;
             
-            if (_children.Count - 1 == Capacity)
+            if (_children.Count >= Capacity)
                 throw new OverflowException("Impossible to place child. Overflow");
-            
+
+            Adopt(child);
             UpdatePositions();
         }
 

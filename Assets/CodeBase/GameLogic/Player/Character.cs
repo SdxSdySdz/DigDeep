@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeBase.GameLogic.Digging;
+using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.GameLogic.Player.Movement;
 using CodeBase.Infrastructure.Services.Input;
 using DG.Tweening;
@@ -10,6 +11,8 @@ namespace CodeBase.GameLogic.Player
     public class Character : MonoBehaviour
     {
         [SerializeField] private Mover _mover;
+        [SerializeField] private Backpack _backpack;
+        
 
         public bool IsClimbing { get; private set; }
 
@@ -20,12 +23,13 @@ namespace CodeBase.GameLogic.Player
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            
+            Fossil fossil = hit.collider.gameObject.GetComponentInParent<Fossil>();
+            if (fossil != null)
+                _backpack.Collect(fossil);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.LogError("Trigger");
             if (other.gameObject.TryGetComponent(out EarthBlock block))
                 block.Dig(this);
         }

@@ -1,4 +1,5 @@
-﻿using CodeBase.GameLogic.Pooling;
+﻿using CodeBase.GameLogic.Placers;
+using CodeBase.GameLogic.Pooling;
 using CodeBase.Infrastructure.Services.Factory;
 using UnityEngine;
 

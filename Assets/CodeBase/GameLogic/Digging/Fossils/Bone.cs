@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CodeBase.GameLogic.Digging.Fossils
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Bone : MonoBehaviour, IFossil
+    public class Bone : Fossil
     {
         [SerializeField] private float _avoidingForce;
         
