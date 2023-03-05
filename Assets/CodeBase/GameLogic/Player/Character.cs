@@ -25,6 +25,7 @@ namespace CodeBase.GameLogic.Player
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.LogError("Trigger");
             if (other.gameObject.TryGetComponent(out EarthBlock block))
                 block.Dig(this);
         }

@@ -52,7 +52,6 @@ namespace CodeBase.GameLogic.Pooling
 
         private void OnObjectDeactivated()
         {
-            Debug.LogError("OnObjectDeactivated");
             if (_pool.Any(obj => obj.IsActive) == false)
                 AllDeactivated?.Invoke();
         }

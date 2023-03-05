@@ -6,27 +6,12 @@ namespace CodeBase.GameLogic.Digging
 {
     public class Quarry : MonoBehaviour
     {
-        [SerializeField] private GridPlacer _placer;
-        [SerializeField] private EarthBlock _earthBlockPrefab;
-
-        private ObjectPool<EarthBlock> _pool;
+        [SerializeField] private Bottom _bottom;
 
         public void Construct(IFactoryService factoryService)
         {
-            _pool = new ObjectPool<EarthBlock>(_placer.Capacity, factoryService.CreateBlock);
-
-            OnAllBlocksDestroyed();
-
-            _pool.AllDeactivated += OnAllBlocksDestroyed;
-        }
-
-        private void OnAllBlocksDestroyed()
-        {
-            for (int i = 0; i < _placer.Capacity; i++)
-            {
-                EarthBlock block = _pool.Get();
-                _placer.Place(block.transform);
-            }
+            _bottom.Construct(factoryService);
+            _bottom.CreateBlocks();
         }
     }   
 }
