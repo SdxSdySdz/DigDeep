@@ -13,7 +13,6 @@ namespace CodeBase.GameLogic.Player
         [SerializeField] private Mover _mover;
         [SerializeField] private Backpack _backpack;
         
-
         public bool IsClimbing { get; private set; }
 
         public void Construct(IInputService inputService)
@@ -24,8 +23,16 @@ namespace CodeBase.GameLogic.Player
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             Fossil fossil = hit.collider.gameObject.GetComponentInParent<Fossil>();
-            if (fossil != null)
+            if (fossil == null) 
+                return;
+            
+            if (_backpack.IsFull)
+            {
+            }
+            else
+            {
                 _backpack.Collect(fossil);
+            }
         }
 
         private void OnTriggerEnter(Collider other)

@@ -7,12 +7,11 @@ namespace CodeBase.GameLogic.Player
     public class Backpack : MonoBehaviour
     {
         [SerializeField] private VerticalPlacer _placer;
+
+        public bool IsFull => _placer.IsFull;
         
         public void Collect(Fossil fossil)
         {
-            if (_placer.IsFull) 
-                return;
-            
             _placer.Place(fossil.transform);
             DisablePhysics(fossil);
         }

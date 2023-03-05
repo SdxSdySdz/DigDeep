@@ -22,7 +22,13 @@ namespace CodeBase.GameLogic.Player.Movement
                 return;
 
             Vector3 movementVector = _movementStrategy.GetMovementVector(_inputService.Axes);
+            Direct(movementVector);
             Move(movementVector);
+        }
+
+        private void Direct(Vector3 movementVector)
+        {
+            _controller.transform.forward = new Vector3(movementVector.x, 0, movementVector.z);
         }
 
         public void SetMovementStrategy(IMovementStrategy movementStrategy)
