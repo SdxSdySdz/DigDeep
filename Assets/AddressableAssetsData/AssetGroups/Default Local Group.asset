@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Bone.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e78c5e2a53441a04397961bbf3cfac35
+    m_Address: Assets/Prefabs/EarthBlock.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 49e422c5ca365cf4a8f6834e55d2276f, type: 2}
   m_SchemaSet:

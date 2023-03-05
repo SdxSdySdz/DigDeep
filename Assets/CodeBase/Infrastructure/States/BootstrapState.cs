@@ -41,14 +41,17 @@ namespace CodeBase.Infrastructure.States
         {
             _services.Register<IYandexGamesService>(new YandexGamesService());
             
+            _services.Register<IRandomService>(new RandomService());
+            
             _services.Register<IInputService>(new StandaloneInputService());
 
             _services.Register<IUpdateService>(updateService);
-            
-            _services.Register<IAssetsService>(new AssetsService());
+
+            RegisterAssetsService();
 
             _services.Register<IFactoryService>(new Factory(
-                _services.Get<IAssetsService>()
+                _services.Get<IAssetsService>(),
+                _services.Get<IRandomService>()
                 ));
             
             _services.Register<IProgressService>(new ProgressService());
@@ -57,8 +60,13 @@ namespace CodeBase.Infrastructure.States
                 _services.Get<IProgressService>(),
                 _services.Get<IFactoryService>()
             ));
+        }
 
-            _services.Register<IRandomService>(new RandomService());
+        private void RegisterAssetsService()
+        {
+            IAssetsService assetsService = new AssetsService();
+            assetsService.Initialize();
+            _services.Register<IAssetsService>(assetsService);
         }
 
         private void OnYandexInitialized()

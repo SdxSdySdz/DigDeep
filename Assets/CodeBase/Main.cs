@@ -29,10 +29,10 @@ namespace CodeBase
 
         private void Update()
         {
-            for (int i = 0; i < _updatables.Count; i++)
+            /*for (int i = 0; i < _updatables.Count; i++)
             {
                 _updatables[i].Update(Time.deltaTime);
-            }
+            }*/
         }
 
         public void Register(IUpdatable updatable)

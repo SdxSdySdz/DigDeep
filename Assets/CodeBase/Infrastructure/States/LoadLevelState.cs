@@ -36,10 +36,10 @@ namespace CodeBase.Infrastructure.States
             _randomService = randomService;
         }
 
-        public void Enter()
+        public async void Enter()
         {
             _factoryService.Cleanup();
-            _factoryService.WarmUp();
+            await _factoryService.WarmUp();
             _sceneLoader.Load(Scenes.GameLoop, EnterGameLoop);
         }
 
@@ -61,11 +61,8 @@ namespace CodeBase.Infrastructure.States
             Character character = Object.FindObjectOfType<Character>();
             character.Construct(_inputService);
 
-            IEnumerable<EarthBlock> blocks = Object.FindObjectsOfType<EarthBlock>();
-            foreach (var block in blocks)
-            {
-                block.Construct(_factoryService, _randomService);
-            }
+            Quarry quarry = Object.FindObjectOfType<Quarry>();
+            quarry.Construct(_factoryService);
         }
 
         private void InitUI()

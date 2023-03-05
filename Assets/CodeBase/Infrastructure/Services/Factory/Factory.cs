@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Constants;
+using CodeBase.GameLogic.Digging;
 using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.Infrastructure.Services.Assets;
 using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Random;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
@@ -11,10 +13,15 @@ namespace CodeBase.Infrastructure.Services.Factory
     public class Factory : IFactoryService
     {
         private readonly IAssetsService _assets;
+        private readonly IRandomService _randomService;
 
-        public Factory(IAssetsService assets)
+        private GameObject _blockPrefab;
+        private GameObject _bonePrefab;
+        
+        public Factory(IAssetsService assets, IRandomService randomService)
         {
             _assets = assets;
+            _randomService = randomService;
         }
 
         public List<IProgressReader> ProgressReaders { get; } = new();
@@ -22,14 +29,25 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public async Task WarmUp()
         {
+            _blockPrefab = await _assets.Load<GameObject>(AssetAddress.EarthBlock);
+            _bonePrefab = await _assets.Load<GameObject>(AssetAddress.Bone);
         }
-
-        public async Task<Bone> CreateBone(Vector3 position)
+        
+        public Bone CreateBone(Vector3 position)
         {
-            GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.Bone, position);
-            Bone bone = prefab.GetComponent<Bone>();
+            GameObject instance = InstantiateRegistered(_bonePrefab, position);
+            Bone bone = instance.GetComponent<Bone>();
 
             return bone;
+        }
+
+        public EarthBlock CreateBlock()
+        {
+            GameObject instance = InstantiateRegistered(_blockPrefab);
+            EarthBlock block = instance.GetComponent<EarthBlock>();
+            block.Construct(this, _randomService);
+
+            return block;
         }
 
         private void Register(IProgressInteractor progressInteractor)
@@ -60,22 +78,6 @@ namespace CodeBase.Infrastructure.Services.Factory
         private GameObject InstantiateRegistered(GameObject prefab)
         {
             GameObject gameObject = Object.Instantiate(prefab);
-            RegisterProgressInteractors(gameObject);
-
-            return gameObject;
-        }
-
-        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at)
-        {
-            GameObject gameObject = await _assets.Instantiate(path: prefabPath, at: at);
-            RegisterProgressInteractors(gameObject);
-
-            return gameObject;
-        }
-
-        private async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
-        {
-            GameObject gameObject = await _assets.Instantiate(path: prefabPath);
             RegisterProgressInteractors(gameObject);
 
             return gameObject;

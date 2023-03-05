@@ -20,7 +20,7 @@ namespace CodeBase.GameLogic.Player
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             if (hit.collider.gameObject.TryGetComponent(out EarthBlock block))
-                block.Dig();
+                block.Dig(this);
         }
 
         public void StopClimbing(Vector3 floorPosition)

@@ -33,8 +33,6 @@ namespace CodeBase.Infrastructure.Services.Assets
             if (_completedCashe.TryGetValue(address, out AsyncOperationHandle completedHandle))
                 return completedHandle.Result as T;
       
-            AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(address);
-
             return await RunWithCacheOnComplete(
                 Addressables.LoadAssetAsync<T>(address), 
                 cacheKey: address);
