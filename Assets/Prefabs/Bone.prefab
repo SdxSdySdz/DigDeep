@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _avoidingForce: 10
+  _collider: {fileID: 176365804730913784}
 --- !u!54 &6251822671559206143
 Rigidbody:
   m_ObjectHideFlags: 0

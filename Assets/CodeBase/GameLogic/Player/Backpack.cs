@@ -1,4 +1,5 @@
-﻿using CodeBase.GameLogic.Digging.Fossils;
+﻿using System.Collections.Generic;
+using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.GameLogic.Placers;
 using UnityEngine;
 
@@ -13,12 +14,17 @@ namespace CodeBase.GameLogic.Player
         public void Collect(Fossil fossil)
         {
             _placer.Place(fossil.transform);
-            DisablePhysics(fossil);
+            fossil.ToNotInteractable();
         }
-
-        private void DisablePhysics(Fossil fossil)
+        
+        public IEnumerable<Fossil> DropFossils(int count)
         {
-            fossil.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            count = Mathf.Min(count, _placer.Count);
+
+            for (int i = 0; i < count; i++)
+            {
+                yield return _placer.Pop().GetComponent<Fossil>();
+            }
         }
     }
 }

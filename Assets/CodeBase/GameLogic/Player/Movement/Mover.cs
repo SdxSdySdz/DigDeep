@@ -28,7 +28,11 @@ namespace CodeBase.GameLogic.Player.Movement
 
         private void Direct(Vector3 movementVector)
         {
-            _controller.transform.forward = new Vector3(movementVector.x, 0, movementVector.z);
+            movementVector = new Vector3(movementVector.x, 0, movementVector.z);
+            if (movementVector == Vector3.zero)
+                return;
+            
+            _controller.transform.forward = movementVector;
         }
 
         public void SetMovementStrategy(IMovementStrategy movementStrategy)

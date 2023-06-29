@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeBase.GameLogic.Digging.Fossils;
 using UnityEngine;
 
 namespace CodeBase.GameLogic.Placers
@@ -8,10 +9,10 @@ namespace CodeBase.GameLogic.Placers
     {
         [SerializeField] private int _capacity;
         [SerializeField] private float _margin;
-        
 
         private List<Transform> _children;
         public bool IsFull => _children.Count >= _capacity;
+        public int Count => _children.Count;
 
         private void Awake()
         {
@@ -29,6 +30,17 @@ namespace CodeBase.GameLogic.Placers
             Align(child);
             Adopt(child);
             UpdatePositions();
+        }
+
+        public Transform Pop()
+        {
+            int index = _children.Count - 1;
+            Transform last = _children[index];
+            
+            last.SetParent(null);
+            _children.RemoveAt(index);
+
+            return last;
         }
 
         private void Adopt(Transform child)

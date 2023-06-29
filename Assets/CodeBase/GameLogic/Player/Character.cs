@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CodeBase.GameLogic.Digging;
 using CodeBase.GameLogic.Digging.Fossils;
 using CodeBase.GameLogic.Player.Movement;
@@ -65,6 +66,11 @@ namespace CodeBase.GameLogic.Player
                     _mover.SetMovementStrategy(new LadderAlongMovement(5f));
                     IsClimbing = true;
                 });
+        }
+
+        public IEnumerable<Fossil> DropFossils(int count)
+        {
+            return _backpack.DropFossils(count);
         }
     }
 }
